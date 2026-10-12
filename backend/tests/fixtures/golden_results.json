@@ -1,0 +1,174 @@
+{
+  "schema_version": "1.0.0",
+  "catalog_version": "1.0.0-import-baseline",
+  "evidence_status": "provisional_sql_import_baseline_live_database_unverified",
+  "source": {
+    "path": "data/real-estate-sales-sample-database-v3-sql-postgres.sql",
+    "sha256": "c585831fc15942bfa3f3fa793d4d4ebedfde81905ae1214781431001043abbe3"
+  },
+  "parameter_contract": {
+    "scope_values": ["ALL", "CA", "TX"],
+    "start_date": "inclusive",
+    "end_date_exclusive": "exclusive",
+    "money_encoding": "base-10 string; compare as Decimal, never binary float",
+    "rate_encoding": "base-10 string plus exact numerator/denominator",
+    "empty_set": "counts are 0; sums, averages, and rates are null; status is no_data"
+  },
+  "kpi_ids": [
+    "sales_value",
+    "transaction_count",
+    "average_sale_value",
+    "sold_property_count",
+    "offer_count",
+    "accepted_offer_rate",
+    "repair_cost"
+  ],
+  "source_date_ranges": {
+    "transactions.transaction_date": {"min": "2021-02-12", "max": "2026-07-13"},
+    "offers.offer_date": {"min": "2021-02-23", "max": "2026-03-25"},
+    "repairs.repair_date": {"min": "2021-02-24", "max": "2026-08-04"}
+  },
+  "cases": [
+    {
+      "id": "all_time_all",
+      "scope": "ALL",
+      "start_date": "0001-01-01",
+      "end_date_exclusive": "9999-12-31",
+      "expected": {
+        "sales": {"status": "ok", "sales_value": "870798679.64", "transaction_count": 1000, "average_sale_value": "870798.67964", "average_fraction": {"numerator": "870798679.64", "denominator": 1000}, "sold_property_count": 125},
+        "offers": {"status": "ok", "offer_count": 125, "accepted_offer_count": 35, "accepted_offer_rate": "0.28", "accepted_offer_fraction": {"numerator": 35, "denominator": 125}},
+        "repairs": {"status": "ok", "repair_row_count": 125, "repair_cost": "2993224.70"}
+      }
+    },
+    {
+      "id": "all_time_ca",
+      "scope": "CA",
+      "start_date": "0001-01-01",
+      "end_date_exclusive": "9999-12-31",
+      "expected": {
+        "sales": {"status": "ok", "sales_value": "107064313.73", "transaction_count": 135, "average_sale_value": "793068.9905925925925925925925925925925926", "average_fraction": {"numerator": "107064313.73", "denominator": 135}, "sold_property_count": 22},
+        "offers": {"status": "ok", "offer_count": 14, "accepted_offer_count": 5, "accepted_offer_rate": "0.3571428571428571428571428571428571428571", "accepted_offer_fraction": {"numerator": 5, "denominator": 14}},
+        "repairs": {"status": "ok", "repair_row_count": 14, "repair_cost": "385283.39"}
+      }
+    },
+    {
+      "id": "all_time_tx",
+      "scope": "TX",
+      "start_date": "0001-01-01",
+      "end_date_exclusive": "9999-12-31",
+      "expected": {
+        "sales": {"status": "ok", "sales_value": "128635636.80", "transaction_count": 132, "average_sale_value": "974512.40", "average_fraction": {"numerator": "128635636.80", "denominator": 132}, "sold_property_count": 14},
+        "offers": {"status": "ok", "offer_count": 11, "accepted_offer_count": 2, "accepted_offer_rate": "0.1818181818181818181818181818181818181818", "accepted_offer_fraction": {"numerator": 2, "denominator": 11}},
+        "repairs": {"status": "ok", "repair_row_count": 18, "repair_cost": "456693.59"}
+      }
+    },
+    {
+      "id": "calendar_2025_all",
+      "scope": "ALL",
+      "start_date": "2025-01-01",
+      "end_date_exclusive": "2026-01-01",
+      "expected": {
+        "sales": {"status": "ok", "sales_value": "81983427.35", "transaction_count": 97, "average_sale_value": "845189.9726804123711340206185567010309278", "average_fraction": {"numerator": "81983427.35", "denominator": 97}, "sold_property_count": 29},
+        "offers": {"status": "ok", "offer_count": 9, "accepted_offer_count": 2, "accepted_offer_rate": "0.2222222222222222222222222222222222222222", "accepted_offer_fraction": {"numerator": 2, "denominator": 9}},
+        "repairs": {"status": "ok", "repair_row_count": 12, "repair_cost": "367957.16"}
+      }
+    },
+    {
+      "id": "calendar_2025_ca",
+      "scope": "CA",
+      "start_date": "2025-01-01",
+      "end_date_exclusive": "2026-01-01",
+      "expected": {
+        "sales": {"status": "ok", "sales_value": "10321229.42", "transaction_count": 15, "average_sale_value": "688081.9613333333333333333333333333333333", "average_fraction": {"numerator": "10321229.42", "denominator": 15}, "sold_property_count": 7},
+        "offers": {"status": "ok", "offer_count": 2, "accepted_offer_count": 0, "accepted_offer_rate": "0", "accepted_offer_fraction": {"numerator": 0, "denominator": 2}},
+        "repairs": {"status": "ok", "repair_row_count": 1, "repair_cost": "25985.57"}
+      }
+    },
+    {
+      "id": "calendar_2025_tx",
+      "scope": "TX",
+      "start_date": "2025-01-01",
+      "end_date_exclusive": "2026-01-01",
+      "expected": {
+        "sales": {"status": "ok", "sales_value": "27703966.33", "transaction_count": 23, "average_sale_value": "1204520.275217391304347826086956521739130", "average_fraction": {"numerator": "27703966.33", "denominator": 23}, "sold_property_count": 6},
+        "offers": {"status": "ok", "offer_count": 1, "accepted_offer_count": 0, "accepted_offer_rate": "0", "accepted_offer_fraction": {"numerator": 0, "denominator": 1}},
+        "repairs": {"status": "ok", "repair_row_count": 1, "repair_cost": "57148.17"}
+      }
+    },
+    {
+      "id": "empty_2030_all",
+      "scope": "ALL",
+      "start_date": "2030-01-01",
+      "end_date_exclusive": "2031-01-01",
+      "expected": {
+        "sales": {"status": "no_data", "sales_value": null, "transaction_count": 0, "average_sale_value": null, "average_fraction": null, "sold_property_count": 0},
+        "offers": {"status": "no_data", "offer_count": 0, "accepted_offer_count": 0, "accepted_offer_rate": null, "accepted_offer_fraction": null},
+        "repairs": {"status": "no_data", "repair_row_count": 0, "repair_cost": null}
+      }
+    },
+    {
+      "id": "empty_2030_ca",
+      "scope": "CA",
+      "start_date": "2030-01-01",
+      "end_date_exclusive": "2031-01-01",
+      "expected": {
+        "sales": {"status": "no_data", "sales_value": null, "transaction_count": 0, "average_sale_value": null, "average_fraction": null, "sold_property_count": 0},
+        "offers": {"status": "no_data", "offer_count": 0, "accepted_offer_count": 0, "accepted_offer_rate": null, "accepted_offer_fraction": null},
+        "repairs": {"status": "no_data", "repair_row_count": 0, "repair_cost": null}
+      }
+    },
+    {
+      "id": "empty_2030_tx",
+      "scope": "TX",
+      "start_date": "2030-01-01",
+      "end_date_exclusive": "2031-01-01",
+      "expected": {
+        "sales": {"status": "no_data", "sales_value": null, "transaction_count": 0, "average_sale_value": null, "average_fraction": null, "sold_property_count": 0},
+        "offers": {"status": "no_data", "offer_count": 0, "accepted_offer_count": 0, "accepted_offer_rate": null, "accepted_offer_fraction": null},
+        "repairs": {"status": "no_data", "repair_row_count": 0, "repair_cost": null}
+      }
+    },
+    {
+      "id": "transaction_min_date_inclusive",
+      "scope": "ALL",
+      "start_date": "2021-02-12",
+      "end_date_exclusive": "2021-02-13",
+      "expected_sales": {"status": "ok", "sales_value": "147371.74", "transaction_count": 1, "average_sale_value": "147371.74", "sold_property_count": 1}
+    },
+    {
+      "id": "transaction_max_date_inclusive",
+      "scope": "ALL",
+      "start_date": "2026-07-13",
+      "end_date_exclusive": "2026-07-14",
+      "expected_sales": {"status": "ok", "sales_value": "840668.43", "transaction_count": 1, "average_sale_value": "840668.43", "sold_property_count": 1}
+    },
+    {
+      "id": "offer_min_date_inclusive",
+      "scope": "ALL",
+      "start_date": "2021-02-23",
+      "end_date_exclusive": "2021-02-24",
+      "expected_offers": {"status": "ok", "offer_count": 1, "accepted_offer_count": 0, "accepted_offer_rate": "0", "accepted_offer_fraction": {"numerator": 0, "denominator": 1}}
+    },
+    {
+      "id": "offer_max_date_inclusive",
+      "scope": "ALL",
+      "start_date": "2026-03-25",
+      "end_date_exclusive": "2026-03-26",
+      "expected_offers": {"status": "ok", "offer_count": 1, "accepted_offer_count": 0, "accepted_offer_rate": "0", "accepted_offer_fraction": {"numerator": 0, "denominator": 1}}
+    },
+    {
+      "id": "repair_min_date_inclusive",
+      "scope": "ALL",
+      "start_date": "2021-02-24",
+      "end_date_exclusive": "2021-02-25",
+      "expected_repairs": {"status": "ok", "repair_row_count": 1, "repair_cost": "51704.83"}
+    },
+    {
+      "id": "repair_max_date_inclusive",
+      "scope": "ALL",
+      "start_date": "2026-08-04",
+      "end_date_exclusive": "2026-08-05",
+      "expected_repairs": {"status": "ok", "repair_row_count": 1, "repair_cost": "1631.01"}
+    }
+  ]
+}
